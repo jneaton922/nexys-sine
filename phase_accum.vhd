@@ -9,6 +9,7 @@ entity phase_accum is
 
         sample_pulse : in std_logic;
         phase_count : out std_logic_vector(7 downto 0)
+        
     );
 end phase_accum;
 

@@ -3,17 +3,18 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity pulse_gen is
+    Generic ( counter_size: integer := 12);
     Port (
         clk : in STD_LOGIC;
         rst : in std_logic;
-        trig : in unsigned(11 downto 0);
+        trig : in unsigned(counter_size-1 downto 0);
         pulse : out std_logic
     );
 end pulse_gen;
 
 architecture arch of pulse_gen is
 
-    signal count : unsigned(11 downto 0);
+    signal count : unsigned(counter_size-1 downto 0);
     signal clear : std_logic;
 
 begin

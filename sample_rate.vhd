@@ -28,7 +28,9 @@ architecture arch of sample_rate is
 
 begin
 
-    pulse : entity pulse_gen port map (
+    pulse : entity pulse_gen 
+    generic map (counter_size => 12)
+    port map (
         clk => clk,
         rst => pulse_reset,
         trig => pulse_trigger,

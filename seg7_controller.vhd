@@ -32,7 +32,9 @@ architecture arch of seg7_controller is
 
 begin
 
-    pulse : entity work.pulse_gen port map (
+    pulse : entity work.pulse_gen 
+    generic map (counter_size => 28)
+    port map (
         clk => clk, 
         rst => rst, 
         trig => x"00186a0", -- 100e3 hex (1kHz pulse)
@@ -75,7 +77,7 @@ begin
             when "110" =>
                 anodes <= "10111111";
                 char <= c7;
-            when "111" =>
+            when others =>
                 anodes <= "01111111";
                 char <= c8;
         end case;

@@ -12,8 +12,10 @@ end lab7_tb;
 architecture sim of lab7_tb is
     signal clk : std_logic;
     signal reset : std_logic;
-    signal sine : std_logic_vector(15 downto 0);
+    signal mono : std_logic;
     signal freq_sel : std_logic_vector(2 downto 0);
+    signal volume : std_logic_vector(2 downto 0);
+    signal audio_amp_en : std_logic;
 
 begin
 
@@ -52,7 +54,9 @@ begin
     dut : entity lab7_top port map (
         clk => clk,
         reset => reset,
-        sine => sine,
-        freq_sel => freq_sel
+        mono => mono,
+        freq_sel => freq_sel,
+        volume => volume,
+        audio_amp_en => audio_amp_en
     );
 end sim;
