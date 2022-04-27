@@ -14,7 +14,7 @@ architecture sim of lab7_tb is
     signal reset : std_logic;
     signal mono : std_logic;
     signal freq_sel : std_logic_vector(2 downto 0);
-    signal volume : std_logic_vector(2 downto 0);
+    signal volume_sel : std_logic_vector(2 downto 0);
     signal audio_amp_en : std_logic;
 
 begin
@@ -33,30 +33,34 @@ begin
 	begin
 		reset <= '1';
         wait for 1 ns;
-        freq_sel <= "000";
-        reset<= '0';
-
-        wait for 3 ms;
-        freq_sel <= "101";
-        wait for 3 ms;
-        freq_sel <= "110";
-        wait for 3 ms;
         freq_sel <= "111";
-        wait for 3 ms;
-        freq_sel <= "001";
-        wait for 3 ms;
-        freq_sel <= "010";
-        wait for 3 ms;
-        freq_sel <= "011";
-        wait for 3 ms;
+        reset<= '0';
+        volume_sel <= "000";
+        wait for 1 ms;
+        volume_sel <= "001";
+        wait for 1 ms;
+        volume_sel <= "010";
+        wait for 1 ms;
+        volume_sel <= "011";
+        wait for 1 ms;
+        volume_sel <= "100";
+        wait for 1 ms;
+        volume_sel <= "101";
+        wait for 1 ms;
+        volume_sel <= "110";
+        wait for 1 ms;
+        volume_sel <= "111";
+        wait for 1 ms;
+
+        
     end process;
 
     dut : entity lab7_top port map (
         clk => clk,
         reset => reset,
-        mono => mono,
+        AUD_PWM => mono,
         freq_sel => freq_sel,
-        volume => volume,
+        volume_sel => volume_sel,
         audio_amp_en => audio_amp_en
     );
 end sim;

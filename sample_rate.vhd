@@ -49,8 +49,6 @@ begin
             pulse_trigger <= (others =>'0');
         elsif (rising_edge(clk)) then
             case freq_sel is
-                when "000" =>
-                    pulse_trigger <= x"fff";
                 when "001" =>
                     pulse_trigger <= x"30e";
                 when "010" => 
@@ -63,8 +61,10 @@ begin
                     pulse_trigger <= x"09d";
                 when "110" =>
                     pulse_trigger <= x"083";
+                when "111" =>
+                    pulse_trigger <= x"070";
                 when others =>
-                    pulse_trigger <= x"09d";
+                    pulse_trigger <= x"fff";
             end case;
         end if;
     end process;
