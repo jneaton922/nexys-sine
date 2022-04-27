@@ -18,25 +18,29 @@ entity sample_rate is
         -- 111 = 3.5kHz
         freq_sel : in std_logic_vector(2 downto 0);
 
-        -- 1/freq = 256*10ns*maxsamplecount
-        -- max_sample_count = 1/(freq*256*10ns)
-
         sample_pulse : out std_logic -- pulse enable for downstream counter(s)
     );
 end sample_rate;
 
 architecture arch of sample_rate is
     signal pulse_trigger : unsigned(11 downto 0);
+    signal pulse_reset : std_logic;
 
 begin
 
     pulse : entity pulse_gen port map (
         clk => clk,
-        rst => reset,
+        rst => pulse_reset,
         trig => pulse_trigger,
         pulse => sample_pulse
     );
 
+    -- separate reset signal for pulse to accomodate 0 Hz counter case
+    pulse_reset <= '1' when freq_sel = "000" else reset;
+
+    -- switch/case of frequencies based on 
+    -- 1/freq = 256*10ns*maxsamplecount
+    -- max_sample_count = 1/(freq*256*10ns)
     process (clk, reset)
     begin
         if (reset = '1') then
@@ -44,7 +48,7 @@ begin
         elsif (rising_edge(clk)) then
             case freq_sel is
                 when "000" =>
-                    pulse_trigger <= x"000";
+                    pulse_trigger <= x"fff";
                 when "001" =>
                     pulse_trigger <= x"30e";
                 when "010" => 

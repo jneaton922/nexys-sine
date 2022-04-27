@@ -31,7 +31,7 @@ begin
 	begin
 		reset <= '1';
         wait for 1 ns;
-        freq_sel <= "100";
+        freq_sel <= "000";
         reset<= '0';
 
         wait for 3 ms;
