@@ -1,6 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
+use work.all;
 
 entity sample_rate is
     port (
@@ -25,12 +26,13 @@ entity sample_rate is
 end sample_rate;
 
 architecture arch of sample_rate is
-    signal pulse_trigger unsigned(11 downto 0);
+    signal pulse_trigger : unsigned(11 downto 0);
+
 begin
 
-    entity pulse_gen port map (
+    pulse : entity pulse_gen port map (
         clk => clk,
-        reset => rst,
+        rst => reset,
         trig => pulse_trigger,
         pulse => sample_pulse
     );
@@ -38,8 +40,7 @@ begin
     process (clk, reset)
     begin
         if (reset = '1') then
-            sample_pulse <= '0';
-            trig <= '0';
+            pulse_trigger <= (others =>'0');
         elsif (rising_edge(clk)) then
             case freq_sel is
                 when "000" =>
@@ -56,9 +57,9 @@ begin
                     pulse_trigger <= x"09d";
                 when "110" =>
                     pulse_trigger <= x"083";
-                when "111" =>
+                when others =>
                     pulse_trigger <= x"09d";
             end case;
         end if;
-    end process
+    end process;
 end arch;

@@ -16,6 +16,7 @@ architecture arch of phase_accum is
     signal cntr_sig : unsigned(7 downto 0);
 begin
     process(clk, reset)
+    begin
         if (reset = '1') then
             cntr_sig <= (others => '0');
         elsif (rising_edge(clk)) then
@@ -24,6 +25,6 @@ begin
             end if;
         end if;
     end process;
-    phase_count <= cntr_sig;
+    phase_count <= std_logic_vector(cntr_sig);
 
 end arch;   

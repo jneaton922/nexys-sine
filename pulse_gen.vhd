@@ -13,7 +13,7 @@ end pulse_gen;
 
 architecture arch of pulse_gen is
 
-    signal count : unsigned(26 downto 0);  -- max trigger of 100MHZ system clock == 27 bits
+    signal count : unsigned(11 downto 0);
     signal clear : std_logic;
 
 begin
